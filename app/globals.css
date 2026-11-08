@@ -1,26 +1,388 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ===========================================================================
+   Voltra design tokens — the single source of truth for every design value.
+   Values follow docs/DESIGN-airbnb.md; names follow the Design SRS convention
+   (--category-role-variant). Components reference these only, never raw values.
+   =========================================================================== */
+
+@theme {
+  /* --- Color: surfaces (DS-FND-01) ------------------------------------- */
+  --color-canvas: #ffffff;
+  --color-surface: #f7f7f7;
+  --color-surface-strong: #f2f2f2;
+  --color-inverse: #222222;
+
+  /* --- Color: text ----------------------------------------------------- */
+  --color-ink: #222222;
+  --color-body: #3f3f3f;
+  --color-secondary: #6a6a6a;
+  --color-disabled: #929292;
+  --color-on-inverse: #ffffff;
+  --color-on-accent: #ffffff;
+
+  /* --- Color: borders -------------------------------------------------- */
+  --color-hairline: #dddddd;
+  --color-hairline-soft: #ebebeb;
+  --color-border-strong: #c1c1c1;
+
+  /* The neutral fill for a device silhouette, where no product colour and no
+     photography are available (see components/commerce/ProductImage.tsx). */
+  --color-placeholder: #c9c9cc;
+
+  /* --- Color: accent (Rausch — the only brand voltage) ----------------- */
+  --color-accent: #ff385c;
+  --color-accent-hover: #e00b41;
+  --color-accent-disabled: #ffd1da;
+
+  /* --- Color: status (always paired with an icon or label) ------------- */
+  --color-success: #248a3d;
+  --color-success-surface: #e9f5ec;
+  --color-warning: #b25000;
+  --color-warning-surface: #fff4e5;
+  --color-warning-ink: #7a3700;
+  --color-danger: #c13515;
+  --color-danger-hover: #b32505;
+  --color-danger-surface: #fff0ed;
+  --color-link-legal: #428bff;
+
+  /* --- Typography families (DS-FND-02) --------------------------------- */
+  --font-sans: var(--font-inter), var(--font-hind), -apple-system, system-ui,
+    "Segoe UI", sans-serif;
+
+  /* --- Type scale ------------------------------------------------------
+     Each step is size / line-height / weight / tracking. Mobile sizes for
+     the two display steps are applied by the .type-* utilities below.     */
+  --text-hero: 3rem; /* 48px */
+  --text-hero--line-height: 1.1;
+  --text-hero--font-weight: 600;
+  --text-hero--letter-spacing: -0.02em;
+
+  --text-display: 1.75rem; /* 28px */
+  --text-display--line-height: 1.25;
+  --text-display--font-weight: 700;
+
+  --text-title: 1.375rem; /* 22px */
+  --text-title--line-height: 1.18;
+  --text-title--font-weight: 600;
+  --text-title--letter-spacing: -0.02em;
+
+  --text-subtitle: 1.25rem; /* 20px */
+  --text-subtitle--line-height: 1.2;
+  --text-subtitle--font-weight: 600;
+  --text-subtitle--letter-spacing: -0.009em;
+
+  --text-strong: 1rem; /* 16px */
+  --text-strong--line-height: 1.25;
+  --text-strong--font-weight: 600;
+
+  --text-base: 1rem; /* 16px */
+  --text-base--line-height: 1.5;
+
+  --text-name: 0.9375rem; /* 15px — product card name */
+  --text-name--line-height: 1.3;
+  --text-name--font-weight: 600;
+
+  --text-sm: 0.875rem; /* 14px */
+  --text-sm--line-height: 1.43;
+
+  --text-caption: 0.8125rem; /* 13px */
+  --text-caption--line-height: 1.23;
+
+  --text-badge: 0.6875rem; /* 11px */
+  --text-badge--line-height: 1.18;
+  --text-badge--font-weight: 600;
+
+  --text-micro: 0.5rem; /* 8px — "NEW" tag */
+  --text-micro--line-height: 1.25;
+  --text-micro--font-weight: 700;
+  --text-micro--letter-spacing: 0.04em;
+
+  --text-price: 1rem; /* 16px */
+  --text-price--line-height: 1.5;
+  --text-price--font-weight: 600;
+
+  --text-price-lg: 1.75rem; /* 28px — PDP price */
+  --text-price-lg--line-height: 1.2;
+  --text-price-lg--font-weight: 600;
+  --text-price-lg--letter-spacing: -0.01em;
+
+  --text-rating: 4rem; /* 64px — review summary */
+  --text-rating--line-height: 1.1;
+  --text-rating--font-weight: 700;
+  --text-rating--letter-spacing: -0.015em;
+
+  /* --- Spacing: 4px base, only these steps (DS-FND-03) ----------------- */
+  --spacing: 4px;
+
+  /* --- Radius (DS-FND-04) ---------------------------------------------- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+
+  /* --- Elevation ------------------------------------------------------- */
+  /* One hairline-plus-lift tier carries the whole system (DESIGN-airbnb). */
+  --shadow-1:
+    rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0,
+    rgba(0, 0, 0, 0.1) 0 4px 8px 0;
+  /* Overlays only: modal, drawer, mega menu (DS-FND-04 --elev-3). */
+  --shadow-2: 0 20px 48px rgba(0, 0, 0, 0.14);
+
+  /* --- Motion (DS-FND-05) ---------------------------------------------- */
+  --motion-fast: 150ms;
+  --motion-base: 250ms;
+  --motion-slow: 400ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Layout ---------------------------------------------------------- */
+  --container-content: 1280px;
+  --size-header: 80px;
+  --size-header-mobile: 64px;
+  --size-utilbar: 36px;
+  --size-touch: 44px;
+
+  /* --- Breakpoints (DS-FND-03) ----------------------------------------- */
+  --breakpoint-sm: 640px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Layer order: tokens, then z-index scale (DS-FND-08). No other z values. */
+@theme {
+  --z-index-base: 0;
+  --z-index-sticky: 100;
+  --z-index-dropdown: 200;
+  --z-index-drawer: 300;
+  --z-index-modal: 400;
+  --z-index-toast: 500;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===========================================================================
+   Base
+   =========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    /* Prices and quantities line up in columns everywhere (DS-FND-02b). */
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Bangla needs more leading than Latin at the same size (DS-FND-02). */
+  :lang(bn) {
+    line-height: 1.65;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  svg {
+    display: block;
+    flex: none;
+  }
+
+  /* Visible focus on every focusable element, never removed (DS-A11Y-03). */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  [hidden] {
+    display: none !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ===========================================================================
+   Token-backed utilities
+   =========================================================================== */
+
+@utility container-content {
+  width: 100%;
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding-inline: --spacing(4);
+
+  @variant sm {
+    padding-inline: --spacing(8);
+  }
+
+  @variant lg {
+    padding-inline: --spacing(10);
+  }
+}
+
+/* Display steps step down on small screens (DS-FND-02). */
+@utility type-hero {
+  font-size: 2rem;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  @variant sm {
+    font-size: var(--text-hero);
+    line-height: var(--text-hero--line-height);
+  }
+}
+
+@utility type-display {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 700;
+
+  @variant sm {
+    font-size: var(--text-display);
+  }
+}
+
+/* An explicit ring for cases where :focus-visible sits on a wrapper. */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* A 24px control needs a 44px hit area (DS-A11Y-04). */
+@utility hit-area {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    min-width: var(--size-touch);
+    min-height: var(--size-touch);
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Horizontal shelves snap, and hide their scrollbar (DS-CMP-SHELF). */
+@utility scroll-shelf {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    scroll-snap-align: start;
+  }
+}
+
+/* Screen-reader-only text that still receives focus when it is a skip link. */
+@utility sr-only-focusable {
+  &:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ===========================================================================
+   Motion
+   =========================================================================== */
+
+@layer utilities {
+  .animate-shimmer {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-surface) 0%,
+      var(--color-surface-strong) 50%,
+      var(--color-surface) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s var(--ease-standard) infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up var(--motion-base) var(--ease-emphasized);
+  }
+
+  .animate-slide-in {
+    animation: slide-in var(--motion-base) var(--ease-emphasized);
+  }
+
+  .animate-fade-in {
+    animation: fade-in var(--motion-fast) var(--ease-standard);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* No parallax, autoplay or scroll-linked motion when it is not wanted
+   (DS-FND-05b, DS-A11Y-08). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

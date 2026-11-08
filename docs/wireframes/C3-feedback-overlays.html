@@ -1,0 +1,109 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Feedback and overlays</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--primary:#ff385c;--primary-active:#e00b41;--primary-disabled:#ffd1da;--ink:#222;--body:#3f3f3f;--muted:#6a6a6a;--muted-soft:#929292;--hairline:#ddd;--hairline-soft:#ebebeb;--border-strong:#c1c1c1;--canvas:#fff;--soft:#f7f7f7;--strong:#f2f2f2;--success:#248a3d;--warning:#b25000;--error:#c13515;--legal:#428bff;--shadow:rgba(0,0,0,.02) 0 0 0 1px,rgba(0,0,0,.04) 0 2px 6px 0,rgba(0,0,0,.1) 0 4px 8px 0}
+body{font-family:Inter,"Hind Siliguri",-apple-system,system-ui,sans-serif;color:var(--ink);background:#fff;font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+a{color:inherit;text-decoration:none}
+svg{display:block;flex:none}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+.row{display:flex;align-items:center}
+.util{height:36px;border-bottom:1px solid var(--hairline-soft);font-size:13px;color:var(--muted)}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;height:36px}
+.util span{margin-left:24px}
+.nav{height:80px;border-bottom:1px solid var(--hairline)}
+.nav .wrap{display:flex;align-items:center;height:80px;gap:32px}
+.logo{font-weight:700;font-size:24px;color:var(--primary);letter-spacing:-.5px;display:flex;align-items:center;gap:6px}
+.cats{display:flex;gap:24px;font-size:14px;font-weight:500;color:var(--ink)}
+.cats a.m{color:var(--muted)}
+.search{flex:1;height:48px;border-radius:9999px;box-shadow:var(--shadow);display:flex;align-items:center;padding:0 6px 0 24px;font-size:14px;color:var(--muted)}
+.search .t{flex:1}
+.orb{width:36px;height:36px;border-radius:9999px;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff}
+.ic{width:40px;height:40px;border-radius:9999px;display:flex;align-items:center;justify-content:center;position:relative;color:var(--ink)}
+.ic.o{border:1px solid var(--hairline)}
+.ic.f{background:var(--strong);width:32px;height:32px}
+.cnt{position:absolute;top:0;right:0;background:var(--primary);color:#fff;font-size:11px;font-weight:600;min-width:18px;height:18px;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+h1.dx{font-size:48px;line-height:1.1;font-weight:600;letter-spacing:-1px}
+.h1{font-size:28px;font-weight:700;line-height:1.43}
+.h2{font-size:22px;font-weight:600;letter-spacing:-.44px;line-height:1.18}
+.h3{font-size:20px;font-weight:600;letter-spacing:-.18px;line-height:1.2}
+.t16{font-size:16px;font-weight:600}
+.sm{font-size:14px;line-height:1.43}
+.cap{font-size:13px;line-height:1.23}
+.mut{color:var(--muted)}
+.btn{height:48px;padding:0 24px;border-radius:8px;font-size:16px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.bp{background:var(--primary);color:#fff}
+.bpa{background:var(--primary-active);color:#fff}
+.bpd{background:var(--primary-disabled);color:#fff}
+.bs{background:#fff;color:var(--ink);border:1px solid var(--ink)}
+.bt{color:var(--ink);text-decoration:underline;padding:0}
+.bpill{height:40px;padding:0 20px;border-radius:9999px;background:var(--primary);color:#fff;font-size:14px;font-weight:500;display:inline-flex;align-items:center}
+.bsm{height:36px;padding:0 16px;font-size:14px}
+.chip{height:36px;padding:0 16px;border-radius:9999px;border:1px solid var(--hairline);font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;background:#fff}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.badge{height:24px;padding:0 10px;border-radius:9999px;background:#fff;font-size:11px;font-weight:600;display:inline-flex;align-items:center;box-shadow:var(--shadow)}
+.badge.sale{background:var(--primary);color:#fff;box-shadow:none}
+.badge.ok{background:#e9f5ec;color:var(--success);box-shadow:none}
+.new{font-size:8px;font-weight:700;letter-spacing:.32px;text-transform:uppercase;padding:2px 6px;border-radius:9999px;background:#fff;box-shadow:var(--shadow)}
+.ph{background:var(--soft);border-radius:14px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dev{background:#222;border-radius:18px;position:relative}
+.dev i{position:absolute;inset:4px;border-radius:14px;display:block}
+.card{display:flex;flex-direction:column;gap:4px}
+.card .ph{aspect-ratio:1/1;margin-bottom:8px}
+.card .bdg{position:absolute;top:12px;left:12px}
+.card .hrt{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:9999px;background:#fff;display:flex;align-items:center;justify-content:center}
+.dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:4px}
+.dots b{width:6px;height:6px;border-radius:9999px;background:#fff;opacity:.6}
+.dots b:first-child{opacity:1}
+.nm{font-size:15px;font-weight:600;line-height:1.3}
+.price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:4px}
+.price .p{font-size:16px;font-weight:600}
+.price .o{font-size:14px;color:var(--muted);text-decoration:line-through}
+.price .s{font-size:13px;color:var(--error);font-weight:500}
+.rate{display:flex;align-items:center;gap:4px;font-size:14px}
+.trust{background:var(--soft);border-radius:20px;display:flex;justify-content:space-between;padding:24px 40px}
+.trust div{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500}
+.shelfh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sec{padding-top:64px}
+.inp{height:56px;border:1px solid var(--hairline);border-radius:8px;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;font-size:16px}
+.inp label{font-size:12px;color:var(--muted);font-weight:500}
+.inp.f{border:2px solid var(--ink)}
+.inp.e{border:2px solid var(--error);background:#fff8f6}
+.err{color:var(--error);font-size:13px;display:flex;gap:6px;align-items:center;margin-top:6px}
+.qty{height:40px;border:1px solid var(--hairline);border-radius:9999px;display:inline-flex;align-items:center;gap:16px;padding:0 6px;font-size:15px;font-weight:500}
+.qty span{width:28px;height:28px;border-radius:9999px;display:flex;align-items:center;justify-content:center;border:1px solid var(--hairline)}
+.hr{height:1px;background:var(--hairline)}
+.foot{border-top:1px solid var(--hairline);margin-top:96px;background:var(--soft)}
+.foot .cols{display:grid;grid-template-columns:repeat(4,1fr) 1.4fr;gap:24px;padding:48px 0}
+.foot h4{font-size:16px;font-weight:500;margin-bottom:12px}
+.foot p{font-size:14px;line-height:2}
+.legal{border-top:1px solid var(--hairline);height:64px;display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted)}
+.box{border:1px solid var(--hairline);border-radius:14px;padding:24px;box-shadow:var(--shadow);background:#fff}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg div{height:48px;padding:0 18px;border:1px solid var(--hairline);border-radius:8px;display:flex;align-items:center;font-size:14px;font-weight:500}
+.seg div.on{border:2px solid var(--ink)}
+.seg div.x{color:var(--muted-soft);text-decoration:line-through;background:var(--soft)}
+.sw{width:32px;height:32px;border-radius:9999px;border:1px solid rgba(0,0,0,.1)}
+.sw.on{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--ink)}
+.lbl{font-size:12px;font-weight:700;margin-bottom:10px}
+.banner{display:flex;gap:12px;align-items:center;padding:12px 16px;border-radius:8px;font-size:14px}
+.banner.w{background:#fff4e5;color:#7a3700}
+.banner.e{background:#fff0ed;color:var(--error)}
+.banner.s{background:#e9f5ec;color:var(--success)}
+.banner.i{background:var(--soft);color:var(--ink)}
+.toast{background:var(--ink);color:#fff;border-radius:8px;padding:14px 18px;display:flex;gap:16px;align-items:center;font-size:14px;width:fit-content}
+.status{height:28px;padding:0 10px;border-radius:9999px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.pay{border:1px solid var(--hairline);border-radius:14px;padding:16px;display:flex;align-items:center;gap:14px}
+.pay.on{border:2px solid var(--ink)}
+.radio{width:22px;height:22px;border-radius:9999px;border:1.5px solid var(--border-strong);flex:none}
+.radio.on{border:7px solid var(--ink)}
+.logo-t{width:44px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex:none}
+.step{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500}
+.step b{width:32px;height:32px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.step .d{background:var(--ink);color:#fff}
+.step .c{background:var(--primary);color:#fff}
+.step .n{border:1px solid var(--border-strong);color:var(--muted)}
+.line{flex:1;height:2px;background:var(--hairline)}
+.line.d{background:var(--ink)}
+.tag{font-size:12px;font-weight:700}
+</style></head><body><div style="padding:64px;width:1504px;background:#fff"><div data-name="Inline banner" style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;max-width:1376px;margin-bottom:64px"><div data-name="Banner/Type=Info" class="banner i" style="width:520px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span style="flex:1">Free delivery inside Dhaka on orders over ৳ 5,000.</span></div><div data-name="Banner/Type=Success" class="banner s" style="width:520px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span style="flex:1">Address saved.</span></div><div data-name="Banner/Type=Warning" class="banner w" style="width:520px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3"/><path d="M12 9v4M12 17h.01"/></svg><span style="flex:1">Only 2 left. Price may change at checkout.</span></div><div data-name="Banner/Type=Error" class="banner e" style="width:520px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3"/><path d="M12 9v4M12 17h.01"/></svg><span style="flex:1">Payment didn't go through. Try again.</span></div><div data-name="Banner/Type=Error, Action=True" class="banner e" style="width:520px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3"/><path d="M12 9v4M12 17h.01"/></svg><span style="flex:1">Payment didn't go through.</span><div class="btn bs" style="height:32px;font-size:14px;padding:0 14px">Try again</div></div></div><div data-name="Toast" style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;max-width:1376px;margin-bottom:64px"><div data-name="Toast/Action=Undo" class="toast">Removed from cart<span style="text-decoration:underline;font-weight:600">Undo</span></div><div data-name="Toast/Action=None" class="toast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Added to wishlist</div></div><div data-name="Skeleton, empty, error" style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;max-width:1376px;margin-bottom:64px"><div data-name="Skeleton/Product card" style="display:flex;flex-direction:column;gap:10px;width:280px"><div style="height:280px;border-radius:14px;background:#f2f2f2"></div><div style="height:14px;width:85%;background:#f2f2f2;border-radius:4px"></div><div style="height:14px;width:55%;background:#f2f2f2;border-radius:4px"></div><div style="height:18px;width:40%;background:#f2f2f2;border-radius:4px"></div></div><div data-name="Empty state/Default" style="display:flex;flex-direction:column;align-items:center;gap:12px;width:360px;padding:40px;text-align:center"><div class="ic f" style="width:56px;height:56px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div class="h3">Your cart is empty</div><div class="sm mut">Find something you love in today's top sellers.</div><div class="btn bp">Continue shopping</div></div><div data-name="Error state/Retry" style="display:flex;flex-direction:column;align-items:center;gap:12px;width:360px;padding:40px;text-align:center"><div class="ic f" style="width:56px;height:56px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3"/><path d="M12 9v4M12 17h.01"/></svg></div><div class="h3">Couldn't load products</div><div class="sm mut">Check your connection and try again.</div><div class="btn bs">Retry</div></div></div><div data-name="Modal and drawer" style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;max-width:1376px;margin-bottom:64px"><div data-name="Modal/Confirm" style="display:flex;flex-direction:column;width:560px;background:#fff;border-radius:28px;box-shadow:0 20px 48px rgba(0,0,0,.14);overflow:hidden"><div class="row" style="justify-content:space-between;padding:20px 24px;border-bottom:1px solid #ebebeb"><div class="ic f"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></div><b class="t16">Remove address?</b><span style="width:32px"></span></div><div style="padding:24px" class="mut">"Office" will be removed from your saved addresses. You can add it again later.</div><div class="row" style="justify-content:space-between;padding:16px 24px;border-top:1px solid #ebebeb"><span style="text-decoration:underline;font-weight:500">Cancel</span><div class="btn" style="background:#c13515;color:#fff">Remove</div></div></div><div data-name="Drawer/Mini cart" style="display:flex;flex-direction:column;width:420px;height:640px;background:#fff;box-shadow:0 20px 48px rgba(0,0,0,.14);border-radius:20px 0 0 20px"><div class="row" style="justify-content:space-between;padding:20px 24px;border-bottom:1px solid #ebebeb"><b class="h3">Cart (2)</b><div class="ic f"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></div></div><div class="banner s" style="margin:16px 24px 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Added to cart</div><div style="flex:1;padding:8px 24px"><div class="row" style="gap:14px;padding:14px 0;border-bottom:1px solid #ebebeb"><div class="ph" style="width:72px;height:72px;border-radius:8px"><div class="dev" style="width:26px;height:54px;border-radius:6px"><i style="background:#d9773b;border-radius:5px"></i></div></div><div style="flex:1;display:flex;flex-direction:column;gap:8px"><div class="sm" style="font-weight:600">Apple iPhone 17 Pro (256GB)</div><div class="row" style="justify-content:space-between"><div class="qty" style="height:32px"><span style="width:22px;height:22px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></span>1<span style="width:22px;height:22px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"/></svg></span></div><span class="sm" style="font-weight:600">৳ 1,64,999</span></div></div></div><div class="row" style="gap:14px;padding:14px 0;border-bottom:1px solid #ebebeb"><div class="ph" style="width:72px;height:72px;border-radius:8px"><div style="width:42px;height:33px;background:#fff;border-radius:11px;box-shadow:inset 0 -10px 0 rgba(0,0,0,.06);position:relative"><div style="position:absolute;top:11px;left:0;right:0;height:1px;background:rgba(0,0,0,.12)"></div></div></div><div style="flex:1;display:flex;flex-direction:column;gap:8px"><div class="sm" style="font-weight:600">Apple AirPods Pro 3</div><div class="row" style="justify-content:space-between"><div class="qty" style="height:32px"><span style="width:22px;height:22px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></span>1<span style="width:22px;height:22px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5v14"/></svg></span></div><span class="sm" style="font-weight:600">৳ 32,999</span></div></div></div></div><div style="padding:20px 24px;border-top:1px solid #ddd;display:flex;flex-direction:column;gap:14px"><div class="row" style="justify-content:space-between"><span class="t16">Subtotal</span><span class="t16">৳ 1,97,998</span></div><div class="btn bp" style="width:100%">Checkout</div><span class="sm" style="text-align:center;text-decoration:underline;font-weight:500">View cart</span></div></div></div></div></body></html>

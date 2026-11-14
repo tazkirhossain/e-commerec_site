@@ -109,17 +109,19 @@ made it.
 
 ## How the data works
 
-There is no API. `data/` holds a sample catalogue — 36 products with real
+There is no API. `data/` holds a sample catalogue — 38 products with real
 variant matrices, 20 brands, 8 stores, 5 campaigns, 10 content pages — typed to
 the entities in Software SRS §4.1. Lookups (`getProduct`, `productsByCategory`,
 `lowestPrice`) are the seam: replacing them with real fetches is a change of
-source, not of shape.
+source, not of shape. **Prices are sample figures** and need checking against
+the distributor price list before launch.
 
-**Product photography is not in the repository.** Rather than ship broken
-images or grey boxes, `ProductImage` draws a device silhouette tinted with the
-selected variant's colour — so changing colour on a product page visibly
-changes the image, which is the behaviour the real gallery will have. Passing a
-real `src` is a one-line data change.
+**Photography** lives in `public/images/products/<slug>/`, one file per view.
+What is there, what is missing, and how to add more is in
+[`docs/IMAGES.md`](docs/IMAGES.md). Each colour carries its own photos, so
+changing colour on a product page changes the gallery. A product with no
+photos yet gets a device silhouette tinted with the variant's colour instead
+of a broken image.
 
 **Money** is held everywhere as a whole number of taka and formatted at the
 edge by `lib/format.ts` (`formatTaka(164999)` → `৳ 1,64,999`). No floating-point

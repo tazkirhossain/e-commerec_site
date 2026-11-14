@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { IconButton } from "@/components/ui/IconButton";
 import { SegmentGroup, SwatchGroup } from "@/components/ui/Swatch";
-import { defaultVariant } from "@/data/products";
+import { defaultVariant, variantPhotos } from "@/data/products";
 import { getBrand } from "@/data/catalog";
 import { formatDate, formatPoints, formatTaka } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -142,23 +142,32 @@ export function BuyBox({
   const comparing = hydrated && inCompare(product.slug);
   const brand = getBrand(product.brand);
 
-  /* One plate per colour stands in for the photography set. */
-  const views = useMemo(
-    () =>
-      [
-        { id: "front", tint: variant.colorHex, label: "Front" },
-        { id: "back", tint: shade(variant.colorHex, -12), label: "Back" },
-        { id: "side", tint: shade(variant.colorHex, 10), label: "Side" },
-      ],
-    [variant.colorHex],
-  );
+  /* The selected variant's photos, then the views shared by every variant.
+     A product without photography gets three tinted plates instead, so the
+     gallery still responds to the colour picker. */
+  const views = useMemo(() => {
+    const photos = variantPhotos(product, variant);
+    if (photos.length > 0) {
+      return photos.map((src, index) => ({
+        id: src,
+        src,
+        tint: variant.colorHex,
+        label: index === 0 ? variant.color : `${variant.color}, view ${index + 1}`,
+      }));
+    }
+    return [
+      { id: "front", tint: variant.colorHex, label: "Front" },
+      { id: "back", tint: shade(variant.colorHex, -12), label: "Back" },
+      { id: "side", tint: shade(variant.colorHex, 10), label: "Side" },
+    ];
+  }, [product, variant]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-[7fr_5fr] lg:gap-12">
       <ProductGallery
-        /* Remount on colour change, so the gallery returns to its first
-           view without an effect that resets it afterwards. */
-        key={variant.colorHex}
+        /* Remount when the photo set changes, so the gallery returns to its
+           first view without an effect that resets it afterwards. */
+        key={views[0]?.id}
         productName={product.name}
         shape={glyphFor(product.category, product.slug)}
         views={views}
@@ -197,7 +206,7 @@ export function BuyBox({
 
         {storages.length > 0 ? (
           <SegmentGroup
-            legend="Storage"
+            legend={secondAxisLabel(storages.map((o) => o.value))}
             options={storages}
             value={storage ?? storages[0].value}
             onChange={(next) => select(color, next)}
@@ -297,6 +306,16 @@ export function BuyBox({
       />
     </div>
   );
+}
+
+/**
+ * What to call the second variant axis. Usually storage, but a console bundle
+ * or a watch's cellular option is an edition, and "Storage" would mislead.
+ */
+function secondAxisLabel(values: string[]): string {
+  if (values.every((v) => /^\d+\s?(GB|TB)$/i.test(v))) return "Storage";
+  if (values.some((v) => /cellular|gps/i.test(v))) return "Connectivity";
+  return "Edition";
 }
 
 /** Nudges a hex lighter or darker, to stand in for a second photograph. */

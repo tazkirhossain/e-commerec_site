@@ -15,8 +15,11 @@ import {
   defaultVariant,
   getProduct,
   getProducts,
+  lowestPrice,
+  primaryPhoto,
   shelves,
 } from "@/data/products";
+import { formatTaka, monthlyInstalment } from "@/lib/format";
 import { featureBanner } from "@/data/offers";
 
 export const metadata: Metadata = {
@@ -40,7 +43,9 @@ export const metadata: Metadata = {
 export default function HomePage() {
   /* The hero features one product, so its colour comes from that product
      rather than being written into the page. */
-  const featured = getProduct("samsung-galaxy-s26-ultra");
+  const featured = getProduct("apple-iphone-17-pro-max")!;
+  const featuredVariant = defaultVariant(featured);
+  const featuredPrice = lowestPrice(featured);
 
   const tiles = homeCategoryTiles
     .map((slug) => categories.find((c) => c.slug === slug))
@@ -55,13 +60,15 @@ export default function HomePage() {
       {/* The hero carries the page's h1. */}
       <Hero
         badge="New"
-        eyebrow="Available for pre-order"
+        eyebrow={featured.name}
         headline="Pro camera. All-day battery."
-        subhead="From ৳ 1,74,999 or ৳ 14,583/month at 0% EMI."
-        primary={{ label: "Pre-order now", href: "/product/samsung-galaxy-s26-ultra" }}
-        secondary={{ label: "Learn more", href: "/category/phones" }}
+        subhead={`From ${formatTaka(featuredPrice)} or ${formatTaka(monthlyInstalment(featuredPrice, 12))}/month at 0% EMI.`}
+        primary={{ label: "Shop now", href: `/product/${featured.slug}` }}
+        secondary={{ label: "All iPhone", href: "/category/iphone" }}
+        image={primaryPhoto(featured, featuredVariant)}
+        imageAlt={`${featured.name} in ${featuredVariant.color}`}
         shape="phone"
-        tint={featured ? defaultVariant(featured).colorHex : undefined}
+        tint={featuredVariant.colorHex}
       />
 
       <Container>

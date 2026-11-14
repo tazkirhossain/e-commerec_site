@@ -9,8 +9,9 @@ export const categories: Category[] = [
     slug: "phones",
     name: "Phones",
     nameBn: "ফোন",
-    blurb: "Flagships, mid-range and feature phones",
+    blurb: "Flagships and mid-range phones",
     specGroups: ["Display", "Chip", "Camera", "Battery", "Connectivity"],
+    image: "/images/products/apple-iphone-17-pro-max/cosmic-orange.jpeg",
   },
   {
     slug: "laptops",
@@ -25,6 +26,7 @@ export const categories: Category[] = [
     nameBn: "ট্যাবলেট",
     blurb: "For reading, drawing and everything between",
     specGroups: ["Display", "Chip", "Camera", "Battery", "Connectivity"],
+    image: "/images/products/apple-ipad-11-a16/blue.jpeg",
   },
   {
     slug: "watches",
@@ -32,6 +34,7 @@ export const categories: Category[] = [
     nameBn: "ঘড়ি",
     blurb: "Health, fitness and notifications on your wrist",
     specGroups: ["Display", "Sensors", "Battery", "Connectivity"],
+    image: "/images/products/apple-watch-series-11/jet-black.jpeg",
   },
   {
     slug: "audio",
@@ -39,20 +42,23 @@ export const categories: Category[] = [
     nameBn: "অডিও",
     blurb: "Headphones, earbuds and speakers",
     specGroups: ["Sound", "Battery", "Connectivity", "In the box"],
+    image: "/images/products/marshall-major-v/cream.jpeg",
   },
   {
     slug: "gaming",
     name: "Gaming",
     nameBn: "গেমিং",
-    blurb: "Consoles, controllers and handhelds",
+    blurb: "Consoles, controllers and headsets",
     specGroups: ["Display", "Performance", "Storage", "In the box"],
+    image: "/images/products/nintendo-switch-2/console.jpeg",
   },
   {
     slug: "networking",
     name: "Networking",
     nameBn: "নেটওয়ার্কিং",
-    blurb: "Routers, mesh systems and range extenders",
+    blurb: "Satellite internet and mesh Wi-Fi",
     specGroups: ["Speed", "Coverage", "Ports", "Security"],
+    image: "/images/products/tp-link-deco-s7-3-pack/white.jpeg",
   },
   {
     slug: "accessories",
@@ -65,15 +71,17 @@ export const categories: Category[] = [
     slug: "cameras",
     name: "Cameras",
     nameBn: "ক্যামেরা",
-    blurb: "Mirrorless bodies, lenses and action cameras",
+    blurb: "Pocket cameras and phone gimbals",
     specGroups: ["Sensor", "Video", "Lens mount", "Battery"],
+    image: "/images/products/dji-osmo-pocket-4-creator-combo/black.jpeg",
   },
   {
     slug: "drones",
     name: "Drones",
     nameBn: "ড্রোন",
-    blurb: "Aerial cameras and FPV kits",
+    blurb: "Compact camera drones",
     specGroups: ["Camera", "Flight time", "Range", "In the box"],
+    image: "/images/products/dji-mini-5-pro/combo-plus-rc2.jpeg",
   },
 
   /* Second level, used by the mega menu's subcategory column. */
@@ -85,22 +93,9 @@ export const categories: Category[] = [
     parent: "phones",
   },
   {
-    slug: "xiaomi-redmi",
-    name: "Xiaomi and Redmi",
-    nameBn: "শাওমি ও রেডমি",
-    parent: "phones",
-  },
-  {
     slug: "google-pixel",
     name: "Google Pixel",
     nameBn: "গুগল পিক্সেল",
-    parent: "phones",
-  },
-  { slug: "oneplus", name: "OnePlus", nameBn: "ওয়ানপ্লাস", parent: "phones" },
-  {
-    slug: "feature-phones",
-    name: "Feature phones",
-    nameBn: "ফিচার ফোন",
     parent: "phones",
   },
   { slug: "macbook", name: "MacBook", nameBn: "ম্যাকবুক", parent: "laptops" },
@@ -150,16 +145,20 @@ export const headerCategories = [
   "accessories",
 ] as const;
 
-/** Home page category tiles — 6 to 8 of them (DS-PG-HOME item 3). */
+/**
+ * Home page category tiles — 6 to 8 of them (DS-PG-HOME item 3). These are
+ * the eight categories with photography; laptops and accessories join once
+ * their images arrive.
+ */
 export const homeCategoryTiles = [
   "phones",
-  "laptops",
   "tablets",
   "watches",
   "audio",
   "gaming",
   "networking",
-  "accessories",
+  "cameras",
+  "drones",
 ] as const;
 
 export const brands: Brand[] = [
@@ -168,116 +167,115 @@ export const brands: Brand[] = [
     name: "Apple",
     description:
       "iPhone, Mac, iPad and Watch, with official warranty and service.",
-    categories: ["phones", "laptops", "tablets", "watches", "audio"],
+    categories: ["phones", "laptops", "tablets", "watches", "accessories"],
   },
   {
     slug: "samsung",
     name: "Samsung",
-    description:
-      "Galaxy phones, tablets and wearables, plus displays and storage.",
-    categories: ["phones", "tablets", "watches", "audio"],
-  },
-  {
-    slug: "sony",
-    name: "Sony",
-    description: "Noise-cancelling audio, mirrorless cameras and PlayStation.",
-    categories: ["audio", "gaming", "cameras"],
-  },
-  {
-    slug: "xiaomi",
-    name: "Xiaomi",
-    description: "Phones, wearables and smart home gear at sharp prices.",
-    categories: ["phones", "watches", "audio"],
+    description: "Galaxy phones and accessories, with official warranty.",
+    categories: ["phones", "accessories"],
   },
   {
     slug: "google",
     name: "Google",
-    description: "Pixel phones with clean Android and years of updates.",
-    categories: ["phones", "audio"],
+    description: "Pixel phones with clean Android and seven years of updates.",
+    categories: ["phones"],
   },
   {
     slug: "oneplus",
     name: "OnePlus",
-    description: "Fast charging, high refresh rates and clean software.",
-    categories: ["phones", "audio"],
+    description: "Tablets and phones with fast charging and clean software.",
+    categories: ["tablets"],
   },
   {
-    slug: "dell",
-    name: "Dell",
-    description: "XPS ultrabooks and Alienware gaming machines.",
-    categories: ["laptops"],
-  },
-  {
-    slug: "asus",
-    name: "Asus",
-    description: "ROG gaming laptops, Zenbooks and networking gear.",
-    categories: ["laptops", "networking"],
-  },
-  {
-    slug: "lenovo",
-    name: "Lenovo",
-    description: "ThinkPad reliability and Legion performance.",
-    categories: ["laptops"],
-  },
-  {
-    slug: "hp",
-    name: "HP",
-    description: "Spectre, Envy and Omen, for work and play.",
-    categories: ["laptops"],
-  },
-  {
-    slug: "anker",
-    name: "Anker",
-    description: "Chargers, cables and power banks that last.",
-    categories: ["accessories", "audio"],
-  },
-  {
-    slug: "jbl",
-    name: "JBL",
-    description: "Portable speakers and everyday headphones.",
-    categories: ["audio"],
-  },
-  {
-    slug: "bose",
-    name: "Bose",
-    description: "Quiet comfort for long flights and louder commutes.",
-    categories: ["audio"],
-  },
-  {
-    slug: "logitech",
-    name: "Logitech",
-    description: "Keyboards, mice and webcams for every desk.",
-    categories: ["accessories", "gaming"],
-  },
-  {
-    slug: "tp-link",
-    name: "TP-Link",
-    description: "Routers and mesh systems that cover the whole flat.",
-    categories: ["networking"],
+    slug: "sony",
+    name: "Sony",
+    description: "PlayStation controllers and accessories.",
+    categories: ["gaming"],
   },
   {
     slug: "nintendo",
     name: "Nintendo",
-    description: "Switch consoles and first-party games.",
+    description: "Switch 2 consoles and bundles.",
     categories: ["gaming"],
   },
   {
-    slug: "canon",
-    name: "Canon",
-    description: "EOS mirrorless bodies and RF lenses.",
-    categories: ["cameras"],
+    slug: "logitech",
+    name: "Logitech",
+    description: "Gaming headsets for PC, console and phone.",
+    categories: ["gaming", "audio"],
+  },
+  {
+    slug: "bose",
+    name: "Bose",
+    description: "Noise-cancelling earbuds and headphones.",
+    categories: ["audio"],
+  },
+  {
+    slug: "marshall",
+    name: "Marshall",
+    description: "Headphones and speakers with the Marshall sound and look.",
+    categories: ["audio"],
+  },
+  {
+    slug: "jbl",
+    name: "JBL",
+    description: "Party and portable speakers.",
+    categories: ["audio"],
+  },
+  {
+    slug: "anker",
+    name: "Anker",
+    description: "Soundcore earbuds, chargers and cases.",
+    categories: ["audio", "accessories"],
+  },
+  {
+    slug: "honor",
+    name: "Honor",
+    description: "Affordable headphones and audio.",
+    categories: ["audio"],
+  },
+  {
+    slug: "haylou",
+    name: "Haylou",
+    description: "Affordable smartwatches with AMOLED displays.",
+    categories: ["watches"],
   },
   {
     slug: "dji",
     name: "DJI",
-    description: "Drones, gimbals and action cameras.",
+    description: "Drones, gimbals and pocket cameras.",
     categories: ["drones", "cameras"],
   },
   {
-    slug: "realme",
-    name: "Realme",
-    description: "Big batteries and fast charging on a budget.",
-    categories: ["phones", "audio"],
+    slug: "starlink",
+    name: "Starlink",
+    description: "Satellite internet kits for home and office.",
+    categories: ["networking"],
+  },
+  {
+    slug: "tp-link",
+    name: "TP-Link",
+    description: "Mesh Wi-Fi systems that cover the whole flat.",
+    categories: ["networking"],
+  },
+  {
+    slug: "asus",
+    name: "Asus",
+    description: "ROG gaming laptops and Zenbooks.",
+    categories: ["laptops"],
+  },
+  {
+    slug: "dell",
+    name: "Dell",
+    description: "XPS ultrabooks for work.",
+    categories: ["laptops"],
+  },
+  {
+    slug: "lenovo",
+    name: "Lenovo",
+    description: "ThinkPad reliability for business.",
+    categories: ["laptops"],
   },
   {
     slug: "baseus",
@@ -291,12 +289,12 @@ export const brands: Brand[] = [
 export const featuredBrands = [
   "apple",
   "samsung",
-  "sony",
-  "xiaomi",
   "google",
-  "asus",
+  "sony",
+  "bose",
+  "marshall",
   "dji",
-  "anker",
+  "starlink",
 ] as const;
 
 /** FR-EMI-01. Tenures initially 3, 6, 9, 12 and 24 months. */

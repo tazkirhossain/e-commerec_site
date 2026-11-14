@@ -9,6 +9,7 @@ import { categories } from "@/data/catalog";
 import {
   defaultVariant,
   lowestPrice,
+  primaryPhoto,
   products,
   trendingSearches,
 } from "@/data/products";
@@ -42,6 +43,7 @@ interface Suggestion {
   slug?: string;
   categorySlug?: string;
   tint?: string;
+  photo?: string;
   price?: number;
 }
 
@@ -98,6 +100,7 @@ function search(query: string): Suggestion[] {
     slug: product.slug,
     categorySlug: product.category,
     tint: defaultVariant(product).colorHex,
+    photo: primaryPhoto(product),
     price: lowestPrice(product),
   }));
 
@@ -306,6 +309,7 @@ export function SearchBar({
                   {option.kind === "product" ? (
                     <>
                       <ProductImage
+                        src={option.photo}
                         alt=""
                         shape={glyphFor(option.categorySlug ?? "", option.slug)}
                         tint={option.tint}

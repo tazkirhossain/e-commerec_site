@@ -5,6 +5,7 @@ import type { Product, Variant } from "@/data/types";
 import { Button } from "@/components/ui/Button";
 import { Quantity } from "@/components/ui/Quantity";
 import { Banner } from "@/components/feedback/Banner";
+import { primaryPhoto } from "@/data/products";
 import { formatTaka } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import { cn } from "@/lib/cn";
@@ -66,6 +67,7 @@ export function CartLineItem({
           aria-label={product.name}
         >
           <ProductImage
+            src={primaryPhoto(product, variant)}
             alt={product.name}
             shape={glyphFor(product.category, product.slug)}
             tint={variant.colorHex}

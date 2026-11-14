@@ -13,7 +13,7 @@ import {
   glyphFor,
 } from "@/components/commerce/ProductImage";
 import { EmptyState, SkeletonRegion } from "@/components/feedback/States";
-import { defaultVariant, getProducts } from "@/data/products";
+import { defaultVariant, getProducts, primaryPhoto } from "@/data/products";
 import { getBrand } from "@/data/catalog";
 import { useStore } from "@/lib/store";
 import { cn } from "@/lib/cn";
@@ -137,6 +137,7 @@ export function CompareTable() {
                         className="flex flex-col gap-2 rounded-md focus-ring"
                       >
                         <ProductImage
+                          src={primaryPhoto(product, variant)}
                           alt={product.name}
                           shape={glyphFor(product.category, product.slug)}
                           tint={variant.colorHex}

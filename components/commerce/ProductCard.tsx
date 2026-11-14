@@ -5,6 +5,7 @@ import {
   isOutOfStock,
   lowestPrice,
   lowestRegularPrice,
+  primaryPhoto,
 } from "@/data/products";
 import { discountPercent } from "@/lib/format";
 import { cn } from "@/lib/cn";
@@ -56,6 +57,7 @@ export function ProductCard({
         className="flex flex-col rounded-md focus-ring"
       >
         <ProductImage
+          src={primaryPhoto(product, variant)}
           alt={product.name}
           shape={glyphFor(product.category, product.slug)}
           tint={variant.colorHex}

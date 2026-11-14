@@ -42,6 +42,8 @@ export interface Category {
   blurb?: string;
   /** Attribute groups that drive the spec table and filters (FR-CAT-03). */
   specGroups?: string[];
+  /** 4:3-friendly photo for the category tile (DS-FND-07). */
+  image?: string;
 }
 
 export interface Brand {
@@ -70,6 +72,11 @@ export interface Variant {
   stock: StockState;
   /** Units available to sell; caps the quantity stepper (FR-CRT-02). */
   available: number;
+  /**
+   * Photos of this exact configuration, main view first. Usually shared by
+   * every SKU of one colour, so changing colour changes the gallery.
+   */
+  images?: string[];
 }
 
 export interface SpecGroup {
@@ -102,6 +109,8 @@ export interface Product {
   name: string;
   brand: string;
   category: string;
+  /** Second-level category slug, e.g. "iphone" under "phones" (FR-CAT-01). */
+  subcategory?: string;
   /** The one-line spec under the name on a card. */
   keySpec: string;
   badge?: BadgeKind;
@@ -122,6 +131,11 @@ export interface Product {
   preOrderArrival?: string;
   /** Stores holding the item, for pickup (FR-INV-08). */
   stockedAt?: string[];
+  /**
+   * Views that apply to every variant — what is in the box, a lifestyle
+   * shot — appended after the variant's own photos in the gallery.
+   */
+  gallery?: string[];
 }
 
 export interface Store {

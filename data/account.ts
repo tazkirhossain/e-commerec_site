@@ -22,22 +22,22 @@ export const orders: Order[] = [
     expectedDelivery: "2026-11-07",
     lines: [
       {
-        name: "Apple iPhone 17 Pro",
-        variant: "Natural Titanium · 256GB",
+        name: "Apple iPhone 17 Pro Max",
+        variant: "Cosmic Orange · 256GB",
         quantity: 1,
-        price: 164999,
+        price: 194999,
       },
       {
-        name: "Apple AirPods Pro 3",
-        variant: "White",
+        name: "Bose QuietComfort Ultra Earbuds",
+        variant: "Black",
         quantity: 1,
         price: 32999,
       },
     ],
-    subtotal: 197998,
+    subtotal: 227998,
     discount: 10000,
     deliveryFee: 0,
-    total: 187998,
+    total: 217998,
     pointsEarned: 1980,
     timeline: [
       {
@@ -122,16 +122,16 @@ export const orders: Order[] = [
     expectedDelivery: "2026-09-30",
     lines: [
       {
-        name: "JBL Charge 6",
-        variant: "Blue",
+        name: "Marshall Major V",
+        variant: "Cream",
         quantity: 1,
-        price: 16499,
+        price: 16999,
       },
     ],
-    subtotal: 16499,
+    subtotal: 16999,
     discount: 0,
     deliveryFee: 0,
-    total: 16499,
+    total: 16999,
     timeline: [
       { status: "Placed", at: "2026-09-28", done: true },
       {
@@ -177,9 +177,9 @@ export const addresses: Address[] = [
 
 /** Saved for later (FR-USR-04). */
 export const wishlist = [
-  "sony-wh-1000xm6",
-  "apple-ipad-pro-13-m5",
-  "dji-mini-6-pro",
+  "marshall-major-v",
+  "apple-ipad-11-a16",
+  "dji-mini-5-pro",
 ];
 
 /** Points ledger (FR-LOY-02). */

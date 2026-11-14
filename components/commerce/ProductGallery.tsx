@@ -20,13 +20,13 @@ import { ProductImage, type GlyphShape } from "./ProductImage";
 export function ProductGallery({
   productName,
   shape,
-  /** One entry per view; the tint stands in for a different photograph. */
+  /** One entry per view: a photo, or a tint when there is no photography. */
   views,
   className,
 }: {
   productName: string;
   shape: GlyphShape;
-  views: { id: string; tint: string; label: string }[];
+  views: { id: string; src?: string; tint: string; label: string }[];
   className?: string;
 }) {
   /* A new colour resets this component to its first view. The parent gives
@@ -65,6 +65,7 @@ export function ProductGallery({
               <ProductImage
                 alt=""
                 shape={shape}
+                src={view.src}
                 tint={view.tint}
                 sizes="64px"
                 className="rounded-xs"
@@ -87,6 +88,7 @@ export function ProductGallery({
               <ProductImage
                 alt={`${productName} — ${view.label}`}
                 shape={shape}
+                src={view.src}
                 tint={view.tint}
                 priority
                 sizes="100vw"
@@ -105,6 +107,7 @@ export function ProductGallery({
           <ProductImage
             alt={`${productName} — ${current.label}`}
             shape={shape}
+            src={current.src}
             tint={current.tint}
             priority
             sizes="(min-width: 1024px) 50vw, 100vw"
@@ -152,7 +155,8 @@ export function ProductGallery({
         <ProductImage
           alt={`${productName} — ${current.label}`}
           shape={shape}
-          tint={current.tint}
+          src={current.src}
+            tint={current.tint}
           sizes="720px"
         />
         <p className="mt-3 text-center text-sm text-secondary">

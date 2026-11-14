@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { ProductImage, glyphFor } from "@/components/commerce/ProductImage";
-import { defaultVariant, getProducts } from "@/data/products";
+import { defaultVariant, getProducts, primaryPhoto } from "@/data/products";
 import { useStore } from "@/lib/store";
 import { cn } from "@/lib/cn";
 
@@ -43,6 +43,7 @@ export function CompareBar() {
           {selected.map((product) => (
             <li key={product.slug}>
               <ProductImage
+                src={primaryPhoto(product)}
                 alt={product.name}
                 shape={glyphFor(product.category, product.slug)}
                 tint={defaultVariant(product).colorHex}

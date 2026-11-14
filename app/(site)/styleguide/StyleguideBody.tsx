@@ -48,6 +48,7 @@ import { AddressCard, PaymentTile, StoreCard } from "@/components/blocks/Tiles";
 import { paymentMethods } from "@/data/payments";
 
 import { addresses } from "@/data/account";
+import type { Product, StockState } from "@/data/types";
 import { brands, getBrandsForCategory, getCategory } from "@/data/catalog";
 import { getProduct, getProducts, shelves } from "@/data/products";
 import { stores } from "@/data/stores";
@@ -73,7 +74,7 @@ export function StyleguideBody() {
 /* The iPhone's own colours, with one marked unavailable to show that state. */
 const swatchOptions = [
   ...new Map(
-    getProduct("apple-iphone-17-pro")!.variants.map((v) => [
+    getProduct("apple-iphone-17-pro-max")!.variants.map((v) => [
       v.color,
       { value: v.color, label: v.color, hex: v.colorHex, available: true },
     ]),
@@ -372,12 +373,26 @@ function CoreControls() {
 
 /* =================================================== L2 Commerce display */
 
+/** A copy of a product with every variant in one stock state. */
+function withStock(product: Product, stock: StockState): Product {
+  return {
+    ...product,
+    variants: product.variants.map((v) => ({
+      ...v,
+      stock,
+      available: stock === "out-of-stock" ? 0 : v.available,
+    })),
+  };
+}
+
 function CommerceDisplay() {
-  const iphone = getProduct("apple-iphone-17-pro")!;
-  const airpods = getProduct("apple-airpods-pro-3")!;
-  const soldOut = getProduct("apple-iphone-17-pro-max")!;
-  const preOrder = getProduct("samsung-galaxy-s26-ultra")!;
-  const watch = getProduct("samsung-galaxy-watch8-44mm")!;
+  const iphone = getProduct("apple-iphone-17-pro-max")!;
+  const airpods = getProduct("bose-quietcomfort-ultra-earbuds")!;
+  /* The catalogue has nothing fully sold out or on pre-order right now, so
+     these two specimens put a real product into that state for display. */
+  const soldOut = withStock(getProduct("apple-iphone-air")!, "out-of-stock");
+  const preOrder = withStock(getProduct("google-pixel-10-pro")!, "pre-order");
+  const watch = getProduct("apple-watch-series-11")!;
   const phones = getCategory("phones")!;
 
   return (

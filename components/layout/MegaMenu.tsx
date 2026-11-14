@@ -3,6 +3,8 @@
 import Link from "next/link";
 import type { Category } from "@/data/types";
 import { getBrandsForCategory, getSubcategories } from "@/data/catalog";
+import { offers } from "@/data/offers";
+import { getProduct, primaryPhoto } from "@/data/products";
 import { Icon } from "@/components/ui/Icon";
 import { ProductImage, glyphFor } from "@/components/commerce/ProductImage";
 import { cn } from "@/lib/cn";
@@ -25,6 +27,12 @@ export function MegaMenuPanel({
 }) {
   const subcategories = getSubcategories(category.slug);
   const brands = getBrandsForCategory(category.slug).slice(0, 6);
+
+  /* The single promo tile (DS-CMP-MEGA): the lead campaign and its first
+     product's photo, so the tile changes when the campaign does. */
+  const promo = offers[0];
+  const promoProduct = promo ? getProduct(promo.products[0]) : undefined;
+  const promoPhoto = promoProduct ? primaryPhoto(promoProduct) : undefined;
 
   return (
     <div
@@ -84,24 +92,27 @@ export function MegaMenuPanel({
           </MenuPill>
         </div>
 
-        <Link
-          href="/offers/iphone-launch-week"
-          onClick={onNavigate}
-          className="group mt-2 flex flex-col gap-2 rounded-md focus-ring"
-        >
-          <ProductImage
-            alt=""
-            ratio="four-three"
-            shape={glyphFor(category.slug)}
-            sizes="320px"
-            className="transition-shadow duration-[--motion-fast] group-hover:shadow-(--shadow-1)"
-          />
-          <span className="text-strong text-ink">iPhone 17 launch week</span>
-          <span className="flex items-center gap-1 text-sm text-secondary group-hover:text-ink">
-            Up to ৳ 10,000 off
-            <Icon name="chevron-right" size={16} />
-          </span>
-        </Link>
+        {promo ? (
+          <Link
+            href={`/offers/${promo.slug}`}
+            onClick={onNavigate}
+            className="group mt-2 flex flex-col gap-2 rounded-md focus-ring"
+          >
+            <ProductImage
+              src={promoPhoto}
+              alt=""
+              ratio="four-three"
+              shape={glyphFor(category.slug)}
+              sizes="320px"
+              className="transition-shadow duration-[--motion-fast] group-hover:shadow-(--shadow-1)"
+            />
+            <span className="text-strong text-ink">{promo.title}</span>
+            <span className="flex items-center gap-1 text-sm text-secondary group-hover:text-ink">
+              {promo.headline}
+              <Icon name="chevron-right" size={16} />
+            </span>
+          </Link>
+        ) : null}
       </div>
     </div>
   );

@@ -23,7 +23,11 @@ export interface HeroProps {
   subhead: string;
   primary: { label: string; href: string };
   secondary?: { label: string; href: string };
-  /** The silhouette used while real hero photography is pending. */
+  /** The featured product's photo. */
+  image?: string;
+  /** Alt text for the photo; the headline already names the product. */
+  imageAlt?: string;
+  /** The silhouette drawn when there is no photo. */
   shape?: GlyphShape;
   /** The featured product's colour. Omitted falls back to the token. */
   tint?: string;
@@ -37,6 +41,8 @@ export function Hero({
   subhead,
   primary,
   secondary,
+  image,
+  imageAlt = "",
   shape = "phone",
   tint,
   badge,
@@ -83,13 +89,17 @@ export function Hero({
 
           <div className="w-full lg:w-[55%]">
             <ProductImage
-              alt=""
+              src={image}
+              alt={imageAlt}
               shape={shape}
               tint={tint}
               priority
               ratio="four-three"
               sizes="(min-width: 1024px) 55vw, 100vw"
-              className="bg-canvas lg:aspect-[21/9]"
+              /* 4:3 rather than the spec's 21:9: that ratio is for full-bleed
+                 lifestyle photography, and a square product shot contained
+                 in a strip that wide renders at a fraction of its size. */
+              className="bg-canvas"
             />
           </div>
         </div>

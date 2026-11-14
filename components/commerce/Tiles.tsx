@@ -23,6 +23,7 @@ export function CategoryTile({
       className={cn("group flex flex-col rounded-md focus-ring", className)}
     >
       <ProductImage
+        src={category.image}
         alt=""
         ratio="four-three"
         shape={glyphFor(category.slug)}

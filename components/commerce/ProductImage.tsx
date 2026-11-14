@@ -4,14 +4,12 @@ import { cn } from "@/lib/cn";
 /**
  * The product image plate.
  *
- * Photography is supplied by the business (Software SRS §1.4) and is not in
- * this repository yet, so when no `src` is given we draw a device silhouette on
- * the surface token instead of shipping a broken image or a grey box. The
- * silhouette is tinted with the variant's own colour, which means switching
- * colour on a product page visibly changes the image — the behaviour the real
- * gallery will have.
+ * Renders the product photo when there is one. Photography is supplied by the
+ * business (Software SRS §1.4) and some products do not have it yet; for
+ * those, a device silhouette is drawn on the surface token instead of a broken
+ * image or a grey box, tinted with the variant's own colour.
  *
- * Giving a product a real `src` later is a data change, not a code change.
+ * Adding photography to a product is a data change, not a code change.
  */
 
 export type GlyphShape =
@@ -93,9 +91,15 @@ export function ProductImage({
           alt={alt}
           fill
           sizes={sizes}
-          priority={priority}
-          loading={priority ? undefined : "lazy"}
-          className="object-cover"
+          /* `priority` is deprecated in Next 16; an above-the-fold image is
+             eager and high priority instead (DS-FND-07b). */
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          /* Supplied photos sit on white. Contain keeps the whole product in
+             frame, and multiply lets that white take on the plate colour, so
+             every card reads as one surface rather than a white square on
+             grey (DS-FND-01b). */
+          className="object-contain p-[6%] mix-blend-multiply"
         />
       ) : (
         /* Decorative: the alt text is carried by the figure around it. */

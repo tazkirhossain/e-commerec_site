@@ -56,13 +56,10 @@ export default async function CategoryPage(
 
   const subcategories = getSubcategories(category.slug);
 
-  /* A parent category shows everything beneath it as well as its own items. */
-  const childSlugs = subcategories.map((c) => c.slug);
+  /* A parent lists everything in it; a subcategory lists only its own. */
   const items = category.parent
-    ? productsByCategory(category.slug)
-    : products.filter(
-        (p) => p.category === category.slug || childSlugs.includes(p.category),
-      );
+    ? products.filter((p) => p.subcategory === category.slug)
+    : productsByCategory(category.slug);
 
   const parent = category.parent ? getCategory(category.parent) : undefined;
 

@@ -15,12 +15,14 @@ export function FeatureBanner({
   headline,
   body,
   cta,
+  image,
   className,
 }: {
   eyebrow: string;
   headline: string;
   body: string;
   cta: { label: string; href: string };
+  image?: string;
   className?: string;
 }) {
   return (
@@ -48,6 +50,7 @@ export function FeatureBanner({
 
         <div className="w-full lg:w-[40%]">
           <ProductImage
+            src={image}
             alt=""
             ratio="four-three"
             shape="phone"
